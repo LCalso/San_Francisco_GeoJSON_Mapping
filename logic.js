@@ -1,3 +1,41 @@
+// var icons = {
+//   COMING_SOON: L.ExtraMarkers.icon({
+//     icon: "ion-settings",
+//     iconColor: "white",
+//     markerColor: "yellow",
+//     shape: "star"
+//   }),
+//   EMPTY: L.ExtraMarkers.icon({
+//     icon: "ion-android-bicycle",
+//     iconColor: "white",
+//     markerColor: "red",
+//     shape: "circle"
+//   }),
+//   OUT_OF_ORDER: L.ExtraMarkers.icon({
+//     icon: "ion-minus-circled",
+//     iconColor: "white",
+//     markerColor: "blue-dark",
+//     shape: "penta"
+//   }),
+//   bikeShareIcon: L.ExtraMarkers.icon({
+//     icon: "ion-android-bicycle",
+//     iconColor: "white",
+//     markerColor: "orange",
+//     shape: "circle"
+//   }),
+//   NORMAL: L.ExtraMarkers.icon({
+//     icon: "ion-android-bicycle",
+//     iconColor: "white",
+//     markerColor: "green",
+//     shape: "circle"
+//   })
+// };
+
+
+
+
+
+
 // An array which will be used to store created cityMarkers
 var cityMarkers = [];
 // loop through the city markers
@@ -17,6 +55,35 @@ for (var i = 0; i < crimes.length; i++) {
   );
 }
 
+// make an array filled with the crime markers 
+var bikeShareMarkers = [];
+for (var i = 0; i < bikeShareLocations.length; i++) {
+  // loop through the cities array, create a new marker, push it to the cityMarkers array
+  bikeShareMarkers.push(
+    L.marker([bikeShareLocations[i].LATITUDE, bikeShareLocations[i].LONGITUDE]
+    //   , 
+    //   {
+    //     L.ExtraMarkers.icon({
+    //       icon: "ion-android-bicycle",
+    //       iconColor: "white",
+    //       markerColor: "orange",
+    //       shape: "circle"
+    //     })
+    //   }
+    )
+      .bindPopup("<h1>" + bikeShareLocations[i].neighborhood + "</h1>")
+  );
+}
+
+// An array which will be used to store created cityMarkers
+var resturauntMarkers = [];
+// loop through the city markers
+for (var i = 0; i < resturaunts.length; i++) {
+  // push the proper information to the cityMarkers array
+  resturauntMarkers.push(
+    L.marker([resturaunts[i].latitude, resturaunts[i].longitude]).bindPopup("<h1>" + resturaunts[i].name + "</h1>")
+  );
+}
 
 // var crimeHeatmapMarkers = []
 // for (var i = 0; i < crimeMarkers.length; i++) {
@@ -66,6 +133,11 @@ for (var i = 0; i < crimes.length; i++) {
 // Now we can handle them as one group instead of referencing each individually
 var cityLayer = L.layerGroup(cityMarkers);
 var crimeLayer = L.layerGroup(crimeMarkers);
+var bikeShareLayer = L.layerGroup(bikeShareMarkers);
+var resturauntLayer = L.layerGroup(resturauntMarkers);
+
+// Initialize an object containing icons for each layer group
+
 
 
 
@@ -150,8 +222,10 @@ var mutuallyExclusiveBaseMaps = {
 
 // Overlays that may be toggled on or off
 var toggleLayers = {
-  cityPoints: cityLayer,
-  crimePoints: crimeLayer,
+  Tourist_Destinations: cityLayer,
+  Reported_Crimes: crimeLayer,
+  Bike_Share_Stations: bikeShareLayer,
+  Resturaunts: resturauntLayer
   // crimeHeatMap: heatLayer
 };
 
